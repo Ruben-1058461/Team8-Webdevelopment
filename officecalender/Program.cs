@@ -8,9 +8,11 @@ var app = builder.Build();
 // Add localhost and port
 app.Urls.Add("http://localhost:5002");
 
-// Test hello
-app.MapGet("" , ()=> "Hello");
+// Call the database initializer
+DatabaseInitializer.InitializeDatabase();
 
+// Test hello
+app.MapGet("", () => "Hello");
 
 
 
