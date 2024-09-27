@@ -104,6 +104,7 @@ StyleCopReport.xml
 *.svclog
 *.scc
 /obj/
+/bin/
 
 # Chutzpah Test files
 _Chutzpah*
