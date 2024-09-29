@@ -15,6 +15,7 @@ C:\Users\Mosqu\OneDrive\Bureaublad\WebbApp\Team8-Webdevelopment\Dashboard\bin\De
 C:\Users\Mosqu\OneDrive\Bureaublad\WebbApp\Team8-Webdevelopment\Dashboard\bin\Debug\net8.0\Dashboard.runtimeconfig.json
 C:\Users\Mosqu\OneDrive\Bureaublad\WebbApp\Team8-Webdevelopment\Dashboard\bin\Debug\net8.0\Dashboard.dll
 C:\Users\Mosqu\OneDrive\Bureaublad\WebbApp\Team8-Webdevelopment\Dashboard\bin\Debug\net8.0\Dashboard.pdb
+<<<<<<< HEAD
 C:\Users\Mosqu\OneDrive\Bureaublad\WebbApp\Team8-Webdevelopment\Dashboard\bin\Debug\net8.0\Microsoft.Data.Sqlite.dll
 C:\Users\Mosqu\OneDrive\Bureaublad\WebbApp\Team8-Webdevelopment\Dashboard\bin\Debug\net8.0\SQLitePCLRaw.batteries_v2.dll
 C:\Users\Mosqu\OneDrive\Bureaublad\WebbApp\Team8-Webdevelopment\Dashboard\bin\Debug\net8.0\SQLitePCLRaw.core.dll
@@ -41,6 +42,9 @@ C:\Users\Mosqu\OneDrive\Bureaublad\WebbApp\Team8-Webdevelopment\Dashboard\bin\De
 C:\Users\Mosqu\OneDrive\Bureaublad\WebbApp\Team8-Webdevelopment\Dashboard\bin\Debug\net8.0\runtimes\win-arm64\native\e_sqlite3.dll
 C:\Users\Mosqu\OneDrive\Bureaublad\WebbApp\Team8-Webdevelopment\Dashboard\bin\Debug\net8.0\runtimes\win-x64\native\e_sqlite3.dll
 C:\Users\Mosqu\OneDrive\Bureaublad\WebbApp\Team8-Webdevelopment\Dashboard\bin\Debug\net8.0\runtimes\win-x86\native\e_sqlite3.dll
+=======
+C:\Users\Mosqu\OneDrive\Bureaublad\WebbApp\Team8-Webdevelopment\Dashboard\bin\Debug\net8.0\MySqlConnector.dll
+>>>>>>> 1d30aae (Werkt met mijn locale database(MYSQL), laat alleen ruwe data zien.)
 C:\Users\Mosqu\OneDrive\Bureaublad\WebbApp\Team8-Webdevelopment\Dashboard\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\Mosqu\OneDrive\Bureaublad\WebbApp\Team8-Webdevelopment\Dashboard\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\Mosqu\OneDrive\Bureaublad\WebbApp\Team8-Webdevelopment\Dashboard\obj\Debug\net8.0\staticwebassets\msbuild.Dashboard.Microsoft.AspNetCore.StaticWebAssets.props

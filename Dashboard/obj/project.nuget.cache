@@ -1,5 +1,6 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "AqhNLVuHDAY=",
   "success": true,
   "projectFilePath": "C:\\Users\\Mosqu\\OneDrive\\Bureaublad\\WebbApp\\Team8-Webdevelopment\\Dashboard\\Dashboard.csproj",
@@ -11,6 +12,14 @@
     "C:\\Users\\Mosqu\\.nuget\\packages\\sqlitepclraw.lib.e_sqlite3\\2.1.2\\sqlitepclraw.lib.e_sqlite3.2.1.2.nupkg.sha512",
     "C:\\Users\\Mosqu\\.nuget\\packages\\sqlitepclraw.provider.e_sqlite3\\2.1.2\\sqlitepclraw.provider.e_sqlite3.2.1.2.nupkg.sha512",
     "C:\\Users\\Mosqu\\.nuget\\packages\\system.memory\\4.5.3\\system.memory.4.5.3.nupkg.sha512"
+=======
+  "dgSpecHash": "4GVcOX0DMsE=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Mosqu\\OneDrive\\Bureaublad\\WebbApp\\Team8-Webdevelopment\\Dashboard\\Dashboard.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Mosqu\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\7.0.1\\microsoft.extensions.logging.abstractions.7.0.1.nupkg.sha512",
+    "C:\\Users\\Mosqu\\.nuget\\packages\\mysqlconnector\\2.3.7\\mysqlconnector.2.3.7.nupkg.sha512"
+>>>>>>> 1d30aae (Werkt met mijn locale database(MYSQL), laat alleen ruwe data zien.)
   ],
   "logs": []
 }
