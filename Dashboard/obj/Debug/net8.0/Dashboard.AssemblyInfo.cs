@@ -14,10 +14,14 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 <<<<<<< HEAD
+<<<<<<< HEAD
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+128aa019023f5bb5989cc9dd2515d25cedaa9222")]
 =======
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7c7f235c0a830e1199f021c57785081f312006a2")]
 >>>>>>> 1d30aae (Werkt met mijn locale database(MYSQL), laat alleen ruwe data zien.)
+=======
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1d30aae1c0e79c5624e97dc2f298bf5a8ef61000")]
+>>>>>>> 3e90c1e (Werkt nu)
 [assembly: System.Reflection.AssemblyProductAttribute("Dashboard")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Dashboard")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
