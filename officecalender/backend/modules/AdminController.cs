@@ -78,4 +78,24 @@ public class AdminController : ControllerBase
 
         return Ok("Data successfully updated.");
     }
+
+    // DELETE: api/Admin/1
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteAdmin(int id)
+    {
+        // Fetch the Admin by id
+        var admin = await _context.Admins.FindAsync(id);
+        if (admin == null)
+        {
+            return NotFound();
+        }
+
+        // Remove the Admin from the DbSet
+        _context.Admins.Remove(admin);
+
+        // Save changes to the database
+        await _context.SaveChangesAsync();
+
+        return Ok("Data successfully deleted.");
+    }
 }
