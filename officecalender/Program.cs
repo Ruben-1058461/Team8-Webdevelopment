@@ -1,3 +1,4 @@
+
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -6,7 +7,7 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 // Add localhost and port
-app.Urls.Add("http://localhost:5002");
+app.Urls.Add("http://localhost:5000");
 
 // Test hello
 app.MapGet("" , ()=> "Hello");
