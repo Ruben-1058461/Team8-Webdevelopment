@@ -1,5 +1,3 @@
-
-=======
 using System;
 using System.Collections.Generic;
 using Microsoft.Data.Sqlite;
@@ -14,11 +12,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 var app = builder.Build();
 
+
 // Add a new endpoint to interact with the database
-app.MapGet("/users", async () =>
+app.MapGet("/Dashboard", async () =>
 {
     // Open a connection with SQLite using the provided connection string
-    using (var connection = new SqliteConnection("Data Source=database.db"))
+    using (var connection = new SqliteConnection($"Data Source=database.db"))
     {
         // Open the connection
         await connection.OpenAsync();
@@ -27,7 +26,7 @@ app.MapGet("/users", async () =>
         using (var command = connection.CreateCommand())
         {
             command.CommandText = @"
-                SELECT id, user_name
+                SELECT id, user_name,email,is_admin
                 FROM admin;
             ";
 
@@ -42,7 +41,10 @@ app.MapGet("/users", async () =>
                     var user = new
                     {
                         id = reader.GetInt32(0), // Index-based retrieval
-                        name = reader.GetString(1)
+                        name = reader.GetString(1),
+                        email = reader.GetString(2),
+                        adminstatus = reader.GetString(3)
+
                     };
                     users.Add(user);
                 }
@@ -56,4 +58,3 @@ app.MapGet("/users", async () =>
 
 
 app.Run();
->>>>>>> 3e90c1e (Werkt nu)
