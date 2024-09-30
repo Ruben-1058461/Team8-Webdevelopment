@@ -1,28 +1,34 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 [Route("api/[controller]")]
 [ApiController]
 public class AdminController : ControllerBase
 {
-    private static List<Admin> Admins = new List<Admin>
+    private readonly Database _context;
+
+    public AdminController(Database context)
     {
-        new Admin { id = 1, user_name = "Thijs", password = "Admin1", email = "Test@mail.com" },
-        new Admin { id = 2, user_name = "Jeroen", password = "Admin2", email = "Test2@mail.com"}
-    };
+        _context = context;
+    }
 
     // GET: api/Admin
     [HttpGet]
-    public ActionResult<IEnumerable<Admin>> GetAdmin()
+    public async Task<ActionResult<IEnumerable<Admin>>> GetAdmin()
     {
-        return Ok(Admins);
+        // Fetch all Admins from the database
+        var admins = await _context.Admins.ToListAsync();
+        return Ok(admins);
     }
 
     // GET: api/Admin/1
     [HttpGet("{id}")]
-    public ActionResult<Admin> GetAdmin(int id)
+    public async Task<ActionResult<Admin>> GetAdmin(int id)
     {
-        // Corrected to use Admins instead of _admin
-        var admin = Admins.Find(a => a.user_name == Admins[id - 1].user_name);
+        // Fetch a specific Admin by id from the database
+        var admin = await _context.Admins.FindAsync(id);
         if (admin == null)
         {
             return NotFound();
