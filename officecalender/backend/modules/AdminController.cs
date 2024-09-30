@@ -59,4 +59,23 @@ public class AdminController : ControllerBase
         // Return the created admin
         return CreatedAtAction(nameof(GetAdmin), new { id = admin.id }, admin);
     }
+
+    // PUT: api/Admin/1
+    [HttpPut("{id}")]
+    public async Task<IActionResult> PutAdmin(int id, Admin admin)
+    {
+        // Validate the admin object
+        if (admin == null || id != admin.id)
+        {
+            return BadRequest();
+        }
+
+        // Update the Admin in the DbSet
+        _context.Entry(admin).State = EntityState.Modified;
+
+        // Save changes to the database
+        await _context.SaveChangesAsync();
+
+        return Ok("Data successfully updated.");
+    }
 }
