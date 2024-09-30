@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import '../../App.css';
+
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -40,18 +42,33 @@ const Login = () => {
 }
 };
 
-  return (
-    <form onSubmit={handleLogin}>
+return (
+  <div className="login-container"> {/* Centrerende container */}
+    <div className="login-box"> {/* Hoofd box met styling */}
+      <h2>Inloggen</h2>
+      <form onSubmit={handleLogin}>
         <div>
-            <label>Username:</label>
-            <input type="username" value={username} onChange={(e) => setUsername(e.target.value)} required />
+          <label>Username:</label>
+          <input
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
         </div>
         <div>
-            <label>Wachtwoord:</label>
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+          <label>Wachtwoord:</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
         </div>
         <button type="submit">Inloggen</button>
-    </form>
+      </form>
+    </div>
+  </div>
 );
 };
 
