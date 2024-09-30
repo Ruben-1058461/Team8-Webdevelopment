@@ -1,5 +1,8 @@
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddDbContext<Database>(options => options.UseSqlite("Data Source=database.db"));
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
