@@ -7,7 +7,7 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 // Add localhost and port
-app.Urls.Add("http://localhost:5000");
+app.Urls.Add("http://localhost:5002");
 
 // Test hello
 app.MapGet("" , ()=> "Hello");
