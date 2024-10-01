@@ -13,6 +13,7 @@ DatabaseInitializer.InitializeDatabase();
 
 // Test hello
 app.MapGet("", () => "Hello");
+// adminlijst 
 
 
 
