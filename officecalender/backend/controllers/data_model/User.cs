@@ -8,4 +8,7 @@ public class User
     public required string email { get; set; }
     public required string recurring_days { get; set; }
     public bool is_admin { get; set; } = false;
+
+    // Add a property for the salt
+    public byte[] salt { get; set; }
 }
