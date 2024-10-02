@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "../../App.css";
 
 const Login = () => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
@@ -17,7 +17,7 @@ const Login = () => {
       const response = await axios.post(
         "http://localhost:5002/api/auth/login",
         {
-          firstName: username,
+          email: email,
           password,
         }
       );
@@ -34,19 +34,15 @@ const Login = () => {
 
   return (
     <div className="login-container">
-      {" "}
-      {/* Centrerende container */}
       <div className="login-box">
-        {" "}
-        {/* Hoofd box met styling */}
         <h2>Inloggen</h2>
         <form onSubmit={handleLogin}>
           <div>
-            <label>Username:</label>
+            <label>Email:</label>
             <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
