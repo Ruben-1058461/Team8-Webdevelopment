@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<Database>(options => options.UseSqlite("Data Source=database.db"));
@@ -38,7 +40,9 @@ app.MapControllers();
 // Test hello
 app.MapGet("", () => "Hello");
 // adminlijst 
+// adminlijst 
 
+app.MapControllers();
 app.MapControllers();
 
 
