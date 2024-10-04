@@ -25,7 +25,7 @@ public class DatabaseInitializer
         }
         else
         {
-            Console.WriteLine("");
+            Console.WriteLine("Database already exists. Not created.");
         }
     }
 
