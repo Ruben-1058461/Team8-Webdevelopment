@@ -31,19 +31,25 @@ app.Urls.Add("http://localhost:5002");
 DatabaseInitializer.InitializeDatabase();
 
 
+app.MapGet("", () => "Hello");
+
+
+
+
 app.UseCors("AllowReactApp");
 
 app.UseRouting();
 
-app.MapControllers();
+
 // Test hello
 app.MapGet("", () => "Hello");
 // adminlijst 
-// adminlijst 
+
 
 app.MapControllers();
 app.MapControllers();
 
 
 app.Run();
+
 
