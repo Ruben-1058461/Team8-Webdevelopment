@@ -37,19 +37,7 @@ namespace officecalender.backend.Controllers
             return Ok(new { token });
         }
 
-        // Verify
-        private bool VerifyPassword(string password, string storedHash, byte[] salt)
-        {
-            // Salt
-            using (var hmac = new HMACSHA256(salt))
-            {
-                var hashedInputPassword = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
-                var hashedInputPasswordString = Convert.ToBase64String(hashedInputPassword);
-
-                // Compare the hashed input password with the stored hash
-                return hashedInputPasswordString == storedHash;
-            }
-        }
+    
 
         // Generate Token
         private string GenerateJwtToken(User user)
