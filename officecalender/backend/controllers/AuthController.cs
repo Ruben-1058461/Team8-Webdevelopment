@@ -31,7 +31,7 @@ namespace officecalender.backend.Controllers
             var user = await _context.Users.SingleOrDefaultAsync(u => u.email == request.Email);
 
             // Check if the user exists and if the password is correct
-            if (user == null || !VerifyPassword(request.Password, user.password, user.salt))
+            if (user == null || !VerifyPassword(request.Password, user.password))
             {
                 return Unauthorized("Invalid credentials");
             }
@@ -49,10 +49,10 @@ namespace officecalender.backend.Controllers
         }
 
         // Verify Password Method (implementation assumed)
-        private bool VerifyPassword(string inputPassword, string storedHash, byte[] salt)
+        private bool VerifyPassword(string inputPassword, string storedHash)
         {
             // Implement your password verification logic here
-            return true; // placeholder; implement actual verification
+            return inputPassword == storedHash; // placeholder; implement actual verification
         }
     }
 }
