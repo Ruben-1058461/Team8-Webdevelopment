@@ -1,7 +1,23 @@
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<Database>(options => options.UseSqlite("Data Source=database.db"));
+
+// Configure CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReactApp", builder =>
+    {
+        builder.WithOrigins("http://localhost:3000") // Allow requests from this origin
+               .AllowAnyHeader() // Allow any header
+               .AllowAnyMethod(); // Allow any HTTP method (GET, POST, etc.)
+    });
+});
+
+
 
 // Configure database connection from appsettings.json
 builder.Services.AddDbContext<Database>(options =>
@@ -50,16 +66,8 @@ DatabaseInitializer.InitializeDatabase();
 
 // Test hello route
 app.MapGet("", () => "Hello");
+// adminlijst 
 
-// Enable Swagger UI
-app.UseSwagger();
-app.UseSwaggerUI(c =>
-{
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-    c.RoutePrefix = string.Empty; // Set Swagger UI at the app's root
-});
-
-// Map controllers
 app.MapControllers();
 
 // Run the application
