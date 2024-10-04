@@ -30,7 +30,7 @@ app.Urls.Add("http://localhost:5002");
 // Call the database initializer
 DatabaseInitializer.InitializeDatabase();
 
-
+//Allows to routing so that you for example localhost/Dashboard
 app.UseCors("AllowReactApp");
 
 app.UseRouting();
