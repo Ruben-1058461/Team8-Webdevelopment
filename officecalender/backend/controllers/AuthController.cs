@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.IdentityModel.Tokens.Jwt; // JwtSecurityTokenHandler
 using officecalender.backend.Models; // Import the Models namespace
 
 namespace officecalender.backend.Controllers
