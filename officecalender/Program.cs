@@ -30,6 +30,10 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
+// Middleware
+app.UseAuthentication();
+app.UseAuthorization();
+
 // Enable middleware to serve generated Swagger as a JSON endpoint
 app.UseSwagger();
 

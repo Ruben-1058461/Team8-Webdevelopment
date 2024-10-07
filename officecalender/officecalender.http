@@ -3,10 +3,10 @@ POST http://localhost:5002/api/AddUser
 Content-Type: application/json
 
 {
-    "FirstName": "Henk",
-    "LastName": "Tenk",
-    "Password": "Kutjes",
-    "Email": "lekker@mail.com",
+    "FirstName": "ishan",
+    "LastName": "dewishan",
+    "Password": "Kak",
+    "Email": "ishan@mail.com",
     "RecurringDays": 5,
     "IsAdmin": false
 }

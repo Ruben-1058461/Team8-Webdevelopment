@@ -8,7 +8,6 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  console.log("Login component is rendered"); // Test
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -17,7 +16,7 @@ const Login = () => {
       const response = await axios.post(
         "http://localhost:5002/api/auth/login",
         {
-          email: email,
+          email,
           password,
         },
         {
@@ -34,7 +33,7 @@ const Login = () => {
       localStorage.setItem("token", response.data.token);
 
       // Navigate to homepage or other
-      navigate("/");
+      navigate("/dashboard");
     } catch (error) {
       // Handle the error
       if (axios.isAxiosError(error)) {
