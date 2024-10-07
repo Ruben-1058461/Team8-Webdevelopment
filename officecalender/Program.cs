@@ -31,7 +31,7 @@ app.Urls.Add("http://localhost:5002");
 DatabaseInitializer.InitializeDatabase();
 
 
-app.MapGet("", () => "Hello");
+
 
 
 
