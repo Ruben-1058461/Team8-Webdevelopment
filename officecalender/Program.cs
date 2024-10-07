@@ -46,7 +46,7 @@ app.MapGet("", () => "Hello");
 // adminlijst 
 
 
-app.MapControllers();
+
 app.MapControllers();
 
 
