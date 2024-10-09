@@ -1,21 +1,20 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using Microsoft.Data.Sqlite;
-
+using BCrypt.Net; // Voeg deze regel toe om BCrypt te gebruiken
 
 [Route("api/[controller]")]
 [ApiController]
 public class AddUserController : ControllerBase
 {
-    private readonly string _connectionString = "Data Source=database.db"; // Set your connection string here
+    private readonly string _connectionString = "Data Source=database.db"; // Stel hier je connectiestring in
 
-    [HttpGet]
-
-    public async Task<IActionResult> GetUsersAsync()
+    // POST: api/AddUser
+    [HttpPost]
+    public async Task<IActionResult> AddUserAsync([FromBody] UserRegistrationRequest request)
     {
         try
         {
-            var users = new List<object>();
             // Create a new SQL connection
             using (var connection = new SqliteConnection(_connectionString))
             {
@@ -31,67 +30,39 @@ public class AddUserController : ControllerBase
                     VALUES (@first_name, @last_name, @password, @email, @recurring_days, @is_admin);
                     ";
 
-                    // Add parameters to avoid SQL injection
-                    // command.Parameters.AddWithValue("@id", "1");
-                    command.Parameters.AddWithValue("@first_name", "Rushil");
-                    command.Parameters.AddWithValue("@last_name", "Lachmon");
-                    command.Parameters.AddWithValue("@password", "abc");
-                    command.Parameters.AddWithValue("@email", "1044025@hr.nl");
-                    command.Parameters.AddWithValue("@recurring_days", "12");
-                    command.Parameters.AddWithValue("@is_admin", "0");
+                    // Hash het wachtwoord met BCrypt
+                    string hashedPassword = BCrypt.Net.BCrypt.HashPassword(request.Password);
 
+                    // Voeg parameters toe om SQL-injectie te voorkomen
+                    command.Parameters.AddWithValue("@first_name", request.FirstName);
+                    command.Parameters.AddWithValue("@last_name", request.LastName);
+                    command.Parameters.AddWithValue("@password", hashedPassword); // Gebruik het gehashte wachtwoord
+                    command.Parameters.AddWithValue("@email", request.Email);
+                    command.Parameters.AddWithValue("@recurring_days", request.RecurringDays);
+                    command.Parameters.AddWithValue("@is_admin", request.IsAdmin);
 
-                    // Execute the command asynchronously and check the result
-                    int result = await command.ExecuteNonQueryAsync();
+                    // Voer de opdracht asynchroon uit
+                    await command.ExecuteNonQueryAsync();
 
-
-                    // Open the connection
-
-
-                    // Create a new command and set the SQL query
-
-
-                    // Return the list of users as a result
-                    return Ok(users);
+                    return Ok("User added successfully");
                 }
             }
         }
         catch (Exception ex)
         {
             // Handle errors and return a problem result
-            return Problem("An error occurred while fetching users: " + ex.Message);
+            return Problem("An error occurred while adding the user: " + ex.Message);
         }
     }
 }
 
-
-
-
-
-
-/*
-
-   // Open a connection with SQLite using the provided connection string
-            using (var connection = new SqliteConnection(_connectionString))
-            {
-
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                     
-
-                    command.Parameters.AddWithValue("@id", "1");
-                    command.Parameters.AddWithValue("@first_name", "Rushil");
-                    command.Parameters.AddWithValue("@last_name", "Lachmon");
-                    command.Parameters.AddWithValue("@password", "abc");
-                    command.Parameters.AddWithValue("@email", "1044025@hr.nl");
-                    command.Parameters.AddWithValue("@recurring_days", "12");
-                    command.Parameters.AddWithValue("@is_admin", "0");
-
-                    await connection.OpenAsync();
-                    // Execute the command and read the results
-                    int result = await command.ExecuteNonQueryAsync();
-                   
-                }
-            }
-
-*/
+// Request model for user registration
+public class UserRegistrationRequest
+{
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public string Password { get; set; }
+    public string Email { get; set; }
+    public int RecurringDays { get; set; }
+    public bool IsAdmin { get; set; }
+}

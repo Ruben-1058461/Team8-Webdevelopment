@@ -1,9 +1,11 @@
-
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<Database>(options => options.UseSqlite("Data Source=database.db"));
+// Configure database connection from appsettings.json
+builder.Services.AddDbContext<Database>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"))); // Zorg ervoor dat deze verbinding correct is gedefinieerd in appsettings.json
 
 // Configure CORS
 builder.Services.AddCors(options =>
@@ -16,13 +18,45 @@ builder.Services.AddCors(options =>
     });
 });
 
-
-
-
+// Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-// builder.Services.AddSwaggerGen();
+
+// Configure Swagger for API documentation
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+});
+
 var app = builder.Build();
+
+// Middleware
+app.UseAuthentication();
+app.UseAuthorization();
+
+// Enable middleware to serve generated Swagger as a JSON endpoint
+app.UseSwagger();
+
+// Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.)
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+    c.RoutePrefix = string.Empty; // Set the Swagger UI at the app's root
+});
+
+// Use CORS policy
+app.UseCors("AllowReactApp");
+
+// Configure exception handling
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage(); // Show detailed errors in development
+}
+else
+{
+    app.UseExceptionHandler("/Home/Error"); // Show generic error page in production
+    app.UseHsts(); // Enable HTTP Strict Transport Security
+}
 
 // Add localhost and port
 app.Urls.Add("http://localhost:5002");
@@ -30,26 +64,11 @@ app.Urls.Add("http://localhost:5002");
 // Call the database initializer
 DatabaseInitializer.InitializeDatabase();
 
-
+// Test hello route
 app.MapGet("", () => "Hello");
 
-
-
-
-app.UseCors("AllowReactApp");
-
-app.UseRouting();
-
-
-// Test hello
-app.MapGet("", () => "Hello");
-// adminlijst 
-
-
-app.MapControllers();
+// Map controllers
 app.MapControllers();
 
-
+// Run the application
 app.Run();
-
-
