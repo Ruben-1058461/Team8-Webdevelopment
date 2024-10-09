@@ -8,7 +8,6 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  console.log("Login component is rendered"); // Test
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -17,18 +16,39 @@ const Login = () => {
       const response = await axios.post(
         "http://localhost:5002/api/auth/login",
         {
-          email: email,
+          email,
           password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json"
+          }
         }
       );
+
+      // Log the response for debugging
+      console.log("Login response:", response);
 
       // Save token in localstorage
       localStorage.setItem("token", response.data.token);
 
       // Navigate to homepage or other
-      navigate("/");
+      navigate("/dashboard");
     } catch (error) {
-      console.error("Error logging in", error);
+      // Handle the error
+      if (axios.isAxiosError(error)) {
+        // Log specific error response if it's an Axios error
+        console.error("Axios error message:", error.message);
+        console.error("Axios error response data:", error.response?.data);
+        console.error("Axios error response status:", error.response?.status);
+        console.error("Axios error response headers:", error.response?.headers);
+      } else {
+        // Log any other error types
+        console.error("Error logging in:", error);
+      }
+      
+      // Display a generic message to the user
+      alert("Login failed. Please check your credentials and try again.");
     }
   };
 

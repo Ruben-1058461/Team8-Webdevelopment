@@ -5,7 +5,18 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Configure database connection from appsettings.json
 builder.Services.AddDbContext<Database>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"))); // Zorg ervoor dat deze verbinding correct is gedefinieerd in appsettings.json
+
+// Configure CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReactApp", builder =>
+    {
+        builder.WithOrigins("http://localhost:3000") // Allow requests from this origin
+               .AllowAnyHeader() // Allow any header
+               .AllowAnyMethod(); // Allow any HTTP method (GET, POST, etc.)
+    });
+});
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -17,19 +28,24 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
 });
 
-// Configure CORS
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAllOrigins",
-        builder => builder.AllowAnyOrigin()
-                          .AllowAnyMethod()
-                          .AllowAnyHeader());
-});
-
 var app = builder.Build();
 
+// Middleware
+app.UseAuthentication();
+app.UseAuthorization();
+
+// Enable middleware to serve generated Swagger as a JSON endpoint
+app.UseSwagger();
+
+// Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.)
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+    c.RoutePrefix = string.Empty; // Set the Swagger UI at the app's root
+});
+
 // Use CORS policy
-app.UseCors("AllowAllOrigins");
+app.UseCors("AllowReactApp");
 
 // Configure exception handling
 if (app.Environment.IsDevelopment())
@@ -50,14 +66,6 @@ DatabaseInitializer.InitializeDatabase();
 
 // Test hello route
 app.MapGet("", () => "Hello");
-
-// Enable Swagger UI
-app.UseSwagger();
-app.UseSwaggerUI(c =>
-{
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-    c.RoutePrefix = string.Empty; // Set Swagger UI at the app's root
-});
 
 // Map controllers
 app.MapControllers();
