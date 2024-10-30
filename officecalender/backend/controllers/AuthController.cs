@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
 using BCrypt.Net;
+using Microsoft.AspNetCore.Identity;
 
 
 [Route("api/[controller]")]
@@ -36,6 +37,8 @@ public class AuthController : ControllerBase
         return Ok(new { message = "Login successful" });
     }
 }
+
+
 
 public class LoginDto
 {
