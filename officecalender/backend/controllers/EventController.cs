@@ -40,6 +40,7 @@ namespace officecalender.backend.Controllers
 
 
         // POST: api/Event
+        [AdminOnly]
         [HttpPost]
         public async Task<ActionResult<Event>> PostEvent(Event eventdata)
         {
@@ -63,6 +64,7 @@ namespace officecalender.backend.Controllers
         }
 
         // PUT: api/Event/1
+        [AdminOnly]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutEvent(int id, Event eventdata)
         {
@@ -82,6 +84,7 @@ namespace officecalender.backend.Controllers
         }
 
         // DELETE: api/Event/1
+        [AdminOnly]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEvent(int id)
         {
