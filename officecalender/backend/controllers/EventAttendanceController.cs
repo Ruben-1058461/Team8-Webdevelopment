@@ -25,6 +25,24 @@ namespace officecalender.backend.Controllers
             return Ok(event_attendances);
         }
 
+        // GET: api/EventAttendance/event/{id}
+        [LoggedIn]
+        [HttpGet("event/{eventId}")]
+        public async Task<ActionResult<IEnumerable<User>>> GetUsersByEventId(int eventId)
+        {
+            var users = await _context.Event_Attendances
+                .Where(x => x.event_id == eventId)
+                .Select(x => x.user_id)
+                .ToListAsync();
+
+            if (!users.Any())
+            {
+                return NotFound("No users found.");
+            }
+            return Ok(users);
+        }
+
+
         // GET: api/Event_Attendance/1
         [HttpGet("{id}")]
         public async Task<ActionResult<Event_Attendance>> GetEvent_Attendance(int id)

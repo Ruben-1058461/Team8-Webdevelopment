@@ -37,3 +37,37 @@ Content-Type: application/json
 DELETE http://localhost:5002/api/event/2
 AdminOnly: true
 ###
+
+// Event Attendance
+GET http://localhost:5002/api/EventAttendance/6
+###
+
+GET http://localhost:5002/api/EventAttendance/event/10
+###
+
+POST http://localhost:5002/api/EventAttendance
+LoggedIn: true
+Content-Type: application/json
+
+{
+  "user_id": 5,
+  "event_id": 10,
+  "rating": 10,
+  "feedback": "Good Soup"
+}
+###
+
+PUT http://localhost:5002/api/EventAttendance/2
+LoggedIn: true
+Content-Type: application/json
+
+{
+    "user_id": 1,
+    "event_id": 10,
+    "rating": 10,
+    "feedback": "Testing Soup"
+}
+###
+
+DELETE http://localhost:5002/api/EventAttendance/1
+###
