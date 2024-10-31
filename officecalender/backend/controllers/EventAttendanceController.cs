@@ -40,6 +40,7 @@ namespace officecalender.backend.Controllers
 
 
         // POST: api/Event_Attendance
+        [LoggedIn]
         [HttpPost]
         public async Task<ActionResult<Event_Attendance>> PostEvent_Attendance(Event_Attendance event_attendance)
         {
@@ -60,6 +61,7 @@ namespace officecalender.backend.Controllers
         }
 
         // PUT: api/Event_Attendance/1
+        [LoggedIn]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutEvent_Attendance(int id, Event_Attendance event_attendance)
         {
