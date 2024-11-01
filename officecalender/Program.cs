@@ -28,7 +28,11 @@ builder.Services.AddSession(options =>
 });
 
 // Add services to the container.
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<LoggedInAttribute>(); // Apply the LoggedIn filter globally
+});
+
 builder.Services.AddEndpointsApiExplorer();
 
 // Configure Swagger for API documentation

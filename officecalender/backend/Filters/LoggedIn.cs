@@ -5,6 +5,12 @@ public class LoggedInAttribute : ActionFilterAttribute
 {
     public override void OnActionExecuting(ActionExecutingContext context)
     {
+        var path = context.HttpContext.Request.Path.Value;
+        if (path == "/api/auth/login" || path == "/api/auth/logout")
+        {
+            return;
+        }
+
         var userEmail = context.HttpContext.Session.GetString("UserEmail");
 
         // Check if the user is logged in
