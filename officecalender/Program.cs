@@ -47,6 +47,12 @@ app.UseSwaggerUI(c =>
 // Use CORS policy
 app.UseCors("AllowReactApp");
 
+// Use filters
+app.Use(async (context, next) =>
+{
+    await next.Invoke();
+});
+
 // Configure exception handling
 if (app.Environment.IsDevelopment())
 {
