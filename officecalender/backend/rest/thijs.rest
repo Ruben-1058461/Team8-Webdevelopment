@@ -46,7 +46,6 @@ GET http://localhost:5002/api/EventAttendance/event/10
 ###
 
 POST http://localhost:5002/api/EventAttendance
-LoggedIn: true
 Content-Type: application/json
 
 {
@@ -57,11 +56,11 @@ Content-Type: application/json
 }
 ###
 
-PUT http://localhost:5002/api/EventAttendance/2
-LoggedIn: true
+PUT http://localhost:5002/api/EventAttendance/3
 Content-Type: application/json
 
 {
+    "id":3,
     "user_id": 1,
     "event_id": 10,
     "rating": 10,

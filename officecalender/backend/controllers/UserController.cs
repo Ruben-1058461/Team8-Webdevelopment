@@ -74,14 +74,32 @@ namespace officecalender.backend.Controllers
                 return BadRequest();
             }
 
+            // Retrieve the existing user from the database
+            var existingUser = await _context.Users.FindAsync(id);
+            if (existingUser == null)
+            {
+                return NotFound("User not found.");
+            }
+
+            // Update the existing user properties
+            existingUser.email = user.email; // Update other fields as necessary
+            existingUser.is_admin = user.is_admin;
+
+            // Hash the password only if it's been changed (if a new password is provided)
+            if (!string.IsNullOrEmpty(user.password) && user.password != existingUser.password)
+            {
+                existingUser.password = HashPassword(user.password);
+            }
+
             // Update the User in the DbSet
-            _context.Entry(user).State = EntityState.Modified;
+            _context.Entry(existingUser).State = EntityState.Modified;
 
             // Save changes to the database
             await _context.SaveChangesAsync();
 
             return Ok("Data successfully updated.");
         }
+
 
         // DELETE: api/user/1
         [HttpDelete("{id}")]
