@@ -71,3 +71,48 @@ Content-Type: application/json
 
 DELETE http://localhost:5002/api/EventAttendance/1
 ###
+
+// Login
+POST http://localhost:5002/api/auth/login
+Content-Type: application/json
+
+{
+    "email":"test@mail.com",
+    "password":"Testing"
+}
+###
+
+POST http://localhost:5002/api/auth/logout
+###
+
+// User Controller
+GET http://localhost:5002/api/user
+###
+
+POST http://localhost:5002/api/user
+Content-Type: application/json
+
+{
+    "first_name":"Thijs",
+    "last_name":"Test",
+    "password":"Testing",
+    "email":"test@mail.com",
+    "recurring_days":"5"
+}
+###
+
+PUT http://localhost:5002/api/user/1
+Content-Type: application/json
+
+{
+    "id":1,
+    "first_name":"Arnold",
+    "last_name":"Test",
+    "password":"Testing",
+    "email":"test@mail.com",
+    "recurring_days":"5"
+}
+###
+
+DELETE http://localhost:5002/api/user/1
+###

@@ -51,6 +51,9 @@ namespace officecalender.backend.Controllers
             // Optionally set default values
             user.is_admin = false;
 
+            // Hash the password before saving it to the database
+            user.password = HashPassword(user.password);
+
             // Add the new User to the DbSet
             _context.Users.Add(user);
 
@@ -98,6 +101,11 @@ namespace officecalender.backend.Controllers
             await _context.SaveChangesAsync();
 
             return Ok("Data successfully deleted.");
+        }
+
+        private string HashPassword(string? password)
+        {
+            return BCrypt.Net.BCrypt.HashPassword(password);
         }
     }
 }

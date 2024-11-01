@@ -5,7 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Configure database connection from appsettings.json
 builder.Services.AddDbContext<Database>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"))); // Zorg ervoor dat deze verbinding correct is gedefinieerd in appsettings.json
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"))); // Ensure this connection is defined in appsettings.json
 
 // Configure CORS
 builder.Services.AddCors(options =>
@@ -16,6 +16,15 @@ builder.Services.AddCors(options =>
                .AllowAnyHeader() // Allow any header
                .AllowAnyMethod(); // Allow any HTTP method (GET, POST, etc.)
     });
+});
+
+// Add session services
+builder.Services.AddDistributedMemoryCache(); // Required for session state
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Set session timeout
+    options.Cookie.HttpOnly = true; // Make cookie accessible only by the server
+    options.Cookie.IsEssential = true; // Required for session to work
 });
 
 // Add services to the container.
@@ -33,6 +42,9 @@ var app = builder.Build();
 // Middleware
 app.UseAuthentication();
 app.UseAuthorization();
+
+// Use session middleware
+app.UseSession();
 
 // Enable middleware to serve generated Swagger as a JSON endpoint
 app.UseSwagger();
