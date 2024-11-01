@@ -1,20 +1,25 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-public class LoggedIn : Attribute, IAsyncActionFilter
-{
-    public async Task OnActionExecutionAsync(ActionExecutingContext actionContext, ActionExecutionDelegate next)
-    {
-        if (!actionContext.HttpContext.Request.Headers.ContainsKey("LoggedIn"))
-        {
-            actionContext.HttpContext.Response.StatusCode = 401;
-            return;
-        }
-        if (actionContext.HttpContext.Request.Headers["LoggedIn"] != "true")
-        {
-            actionContext.HttpContext.Response.StatusCode = 401;
-            return;
-        }
-        await next.Invoke();
-        return;
-    }
 
+public class LoggedInAttribute : ActionFilterAttribute
+{
+    public override void OnActionExecuting(ActionExecutingContext context)
+    {
+        var path = context.HttpContext.Request.Path.Value;
+        if (path == "/api/auth/login" || path == "/api/auth/logout")
+        {
+            return;
+        }
+
+        var userEmail = context.HttpContext.Session.GetString("UserEmail");
+
+        // Check if the user is logged in
+        if (string.IsNullOrEmpty(userEmail))
+        {
+            // User is not logged in; return 403 Forbidden
+            context.Result = new ForbidResult("User is not logged in");
+        }
+
+        base.OnActionExecuting(context);
+    }
 }
