@@ -36,7 +36,7 @@ public class AuthController : ControllerBase
             return Unauthorized("Invalid email or password");
         }
 
-        // Check if the user is already logged in (you can implement this based on your own logic)
+        // Check if the user is already logged in
         if (HttpContext.Session.GetString("UserEmail") == user.email)
         {
             return Conflict("User is already logged in");
@@ -65,6 +65,19 @@ public class AuthController : ControllerBase
         // Clear the user session
         HttpContext.Session.Remove("UserEmail");
         return Ok(new { message = "Logout successful" });
+    }
+
+    [HttpGet("loggedIn")]
+    public IActionResult IsLoggedIn()
+    {
+        // Check if there's an active session with a user email
+        var userEmail = HttpContext.Session.GetString("UserEmail");
+
+        if (!string.IsNullOrEmpty(userEmail))
+        {
+            return Ok(true);
+        }
+        return BadRequest(false);
     }
 
     private string GenerateJwtToken(User user)
