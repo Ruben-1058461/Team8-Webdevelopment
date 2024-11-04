@@ -1,62 +1,108 @@
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+using System;
+using System.Threading.Tasks;
 using Microsoft.Data.Sqlite;
 
-
+[LoggedIn]
 [Route("api/[controller]")]
 [ApiController]
 public class DashboardController : ControllerBase
 {
-      private readonly string _connectionString = "Data Source=database.db"; // Set your connection string here
-
+    private readonly string _connectionString = "Data Source=database.db"; 
     [HttpGet]
-   
-        public async Task<IActionResult> GetUsersAsync()
+    public async Task<IActionResult> GetUserAsync()
+    {
+        // Retrieve the UserId from the session
+        int? userId = HttpContext.Session.GetInt32("UserId");
+        if (!userId.HasValue)
         {
-            try
+            return Unauthorized("User ID not found in session; user might not be logged in.");
+        }
+
+        try
+        {
+            object user = null;
+            bool isAdmin = false;
+
+            using (var connection = new SqliteConnection(_connectionString))
             {
-                var users = new List<object>();
+                await connection.OpenAsync();
 
-                // Open a connection with SQLite using the provided connection string
-                using (var connection = new SqliteConnection(_connectionString))
+                // Checks for admin status
+                using (var checkAdminCommand = connection.CreateCommand())
                 {
-                    // Open the connection
-                    await connection.OpenAsync();
+                    checkAdminCommand.CommandText = @"
+                        SELECT is_admin
+                        FROM admin
+                        WHERE id = $userId;";
+                    checkAdminCommand.Parameters.AddWithValue("$userId", userId.Value);
 
-                    // Create a new command and set the SQL query
-                    using (var command = connection.CreateCommand())
+                    var isAdminResult = await checkAdminCommand.ExecuteScalarAsync();
+                    isAdmin = isAdminResult != null && Convert.ToBoolean(isAdminResult);
+                }
+
+                // Checks for admin status then retrieves it
+                using (var command = connection.CreateCommand())
+                {
+                    if (isAdmin)
                     {
                         command.CommandText = @"
-                            SELECT id, user_name, email, is_admin 
-                            FROM admin WHERE is_admin IS 0;
-                        ";
+                            SELECT id, first_name, last_name, email, is_admin 
+                            FROM admin
+                            WHERE id = $userId;";
+                    }
+                    else
+                    {
+                        command.CommandText = @"
+                            SELECT id, first_name, last_name, email, recurring_days 
+                            FROM user
+                            WHERE id = $userId;";
+                    }
+                    command.Parameters.AddWithValue("$userId", userId.Value);
 
-                        // Execute the command and read the results
-                        using (var reader = await command.ExecuteReaderAsync())
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        if (await reader.ReadAsync())
                         {
-                            // Loop through the data returned by the query
-                            while (await reader.ReadAsync())
+                            if (isAdmin)
                             {
-                                var user = new
+                                user = new
                                 {
-                                    id = reader.GetInt32(0), // Index-based retrieval
-                                    name = reader.GetString(1),
-                                    email = reader.GetString(2),
-                                    is_admin = reader.GetBoolean(3) // Use GetBoolean for is_admin
+                                    id = reader.GetInt32(0),
+                                    first_name = reader.GetString(1),
+                                    last_name = reader.GetString(2),
+                                    email = reader.GetString(3),
+                                    privileges = reader.GetString(4) 
                                 };
-                                users.Add(user);
+                            }
+                            else
+                            {
+                                user = new
+                                {
+                                    id = reader.GetInt32(0),
+                                    first_name = reader.GetString(1),
+                                    last_name = reader.GetString(2),
+                                    email = reader.GetString(3),
+                                    recurring_days = reader.GetInt32(4)
+                                };
                             }
                         }
                     }
                 }
+            }
 
-                // Return the list of users as a result
-                return Ok(users);
-            }
-            catch (Exception ex)
+            if (user == null)
             {
-                // Handle errors and return a problem result
-                return Problem("An error occurred while fetching users: " + ex.Message);
+                return NotFound("User not found.");
             }
+
+            
+            return Ok(user);
+        }
+        catch (Exception ex)
+        {
+            
+            return Problem("An error occurred while fetching user data: " + ex.Message);
         }
     }
+}

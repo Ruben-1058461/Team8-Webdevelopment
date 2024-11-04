@@ -93,3 +93,13 @@ DELETE http://localhost:5002/api/SignUpEvent/deleteUserSignup/1
 
 
 
+###
+// Dashboard retrieve beased on ID
+GET http://localhost:5002/api/Dashboard
+Content-Type: application/json
+
+{
+    "email":"example@lemon.com",
+    "password":"lemon"
+}
+###
