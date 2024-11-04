@@ -44,14 +44,31 @@ public class AuthController : ControllerBase
 
         // Generate JWT token
         var token = GenerateJwtToken(user);
-
-        // Store user email in session or other method to check if already logged in
+         
+        //Now stores id and email in the user session
+    try
+    {
         HttpContext.Session.SetString("UserEmail", user.email);
+        HttpContext.Session.SetInt32("UserId", user.id);
 
-        return Ok("Logged in Succesfully");
+        // Verify values immediately
+        var emailInSession = HttpContext.Session.GetString("UserEmail");
+        var userIdInSession = HttpContext.Session.GetInt32("UserId");
 
-        // return this if you want the user to see the token
-        // return Ok(new { token });
+        if (string.IsNullOrEmpty(emailInSession) || !userIdInSession.HasValue)
+        {
+            return StatusCode(500, "Failed to store session values");
+        }
+
+        return Ok("Logged in Successfully");
+    }
+    catch (Exception ex)
+    {
+        
+        return StatusCode(500, $"Exception: {ex.Message}");
+    }
+
+
     }
 
     [HttpPost("logout")]
@@ -62,8 +79,9 @@ public class AuthController : ControllerBase
         {
             return BadRequest("No user logged in");
         }
-        // Clear the user session
+        // Clear the user session I also made it clear the ID
         HttpContext.Session.Remove("UserEmail");
+        HttpContext.Session.Remove("UserId");
         return Ok(new { message = "Logout successful" });
     }
 
@@ -91,6 +109,7 @@ public class AuthController : ControllerBase
 
 public class LoginDto
 {
+    
     public string? Email { get; set; }
     public string? Password { get; set; }
 }
