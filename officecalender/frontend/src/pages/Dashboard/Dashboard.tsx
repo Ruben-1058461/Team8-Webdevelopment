@@ -17,7 +17,7 @@ const Dashboard = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:5002/api/Dashboard');
+                const response = await fetch('http://localhost:5002/api/dashboard');
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }

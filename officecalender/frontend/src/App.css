@@ -28,6 +28,48 @@
   color: #61dafb;
 }
 
+.login-container {
+  display: flex; /* Flexbox gebruiken om de inhoud te centreren */
+  justify-content: center; /* Horizontaal centreren */
+  align-items: center; /* Verticaal centreren */
+  height: 100vh; /* Volledige hoogte van het viewport */
+}
+
+.login-box {
+  background-color: #f8f9fa; /* Lichte achtergrondkleur */
+  border-radius: 15px; /* Afronde hoeken */
+  padding: 20px; /* Ruimte rondom de inhoud */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Schaduw voor diepte */
+  width: 300px; /* Breedte van de box */
+  text-align: center; /* Tekst centreren */
+}
+
+.login-box h2 {
+  margin-bottom: 20px; /* Ruimte onder de titel */
+}
+
+.login-box input {
+  margin-bottom: 15px; /* Ruimte onder de invoervelden */
+  width: 100%; /* Volledige breedte */
+  padding: 10px; /* Ruimte binnen de invoervelden */
+  border-radius: 5px; /* Afronde hoeken van de invoervelden */
+  border: 1px solid #ced4da; /* Grijze randkleur */
+}
+
+.login-box button {
+  background-color: #007bff; /* Kleur van de knop */
+  color: white; /* Witte tekstkleur */
+  border: none; /* Geen rand */
+  border-radius: 5px; /* Afronde hoeken van de knop */
+  padding: 10px; /* Ruimte binnen de knop */
+  cursor: pointer; /* Cursor aanwijzen bij hover */
+  width: 100%; /* Volledige breedte van de knop */
+}
+
+.login-box button:hover {
+  background-color: #0056b3; /* Donkere kleur bij hover */
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

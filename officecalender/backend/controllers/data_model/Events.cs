@@ -1,11 +1,11 @@
 public class Event
 {
-    public required int id { get; set; }
-    public required string title { get; set; }
-    public required string date { get; set; }
-    public required string start_time { get; set; }
-    public required string end_time { get; set; }
-    public required string location { get; set; }
+    public int id { get; set; }
+    public string? title { get; set; }
+    public string? date { get; set; }
+    public string? start_time { get; set; }
+    public string? end_time { get; set; }
+    public string? location { get; set; }
     public bool admin_approval { get; set; } = true;
 
 }

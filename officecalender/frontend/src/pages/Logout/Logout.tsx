@@ -1,17 +1,17 @@
-// Login.tsx
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-export {}; // Add this line to make the file a module
+const Logout = () => {
+    const navigate = useNavigate();
 
-import React from 'react';
+    useEffect(() => {
+        // Delete token 
+        localStorage.removeItem('token');
+        // Navigate to login
+        navigate('/login');
+    }, [navigate]);
 
-const Logout= () => {
-    // Your login component logic goes here
-    return (
-        <div>
-            <h1>Logout Page</h1>
-            {/* Add your login form here */}
-        </div>
-    );
+    return <div>U bent uitgelogd!</div>;
 };
 
-export default Logout; // Export your component as default
+export default Logout;

@@ -1,2 +1,12 @@
-GET http://localhost:5002/
+### Voeg een nieuwe gebruiker toe
+POST http://localhost:5002/api/AddUser
+Content-Type: application/json
 
+{
+    "FirstName": "ishan",
+    "LastName": "dewishan",
+    "Password": "Kak",
+    "Email": "ishan@mail.com",
+    "RecurringDays": 5,
+    "IsAdmin": false
+}

@@ -1,0 +1,117 @@
+// Event endpoint
+GET http://localhost:5002/api/event
+###
+
+GET http://localhost:5002/api/event/1
+###
+
+POST http://localhost:5002/api/event
+AdminOnly: true
+Content-Type: application/json
+
+{
+    "title": "Test",
+    "date": "31-10-2024",
+    "start_time": "9:30",
+    "end_time": "10:00",
+    "location": "Rotterdam",
+    "admin_approval": true
+}
+###
+
+PUT http://localhost:5002/api/event/1
+AdminOnly: true
+Content-Type: application/json
+
+{
+    "id": 1,
+    "title": "Test Post",
+    "date": "31-10-2024",
+    "start_time": "9:30",
+    "end_time": "11:00",
+    "location": "Breda",
+    "admin_approval": true
+}
+###
+
+DELETE http://localhost:5002/api/event/2
+AdminOnly: true
+###
+
+// Event Attendance
+GET http://localhost:5002/api/EventAttendance/6
+###
+
+GET http://localhost:5002/api/EventAttendance/event/10
+###
+
+POST http://localhost:5002/api/EventAttendance
+Content-Type: application/json
+
+{
+  "user_id": 5,
+  "event_id": 10,
+  "rating": 10,
+  "feedback": "Good Soup"
+}
+###
+
+PUT http://localhost:5002/api/EventAttendance/3
+Content-Type: application/json
+
+{
+    "id":3,
+    "user_id": 1,
+    "event_id": 10,
+    "rating": 10,
+    "feedback": "Testing Soup"
+}
+###
+
+DELETE http://localhost:5002/api/EventAttendance/1
+###
+
+// Login
+POST http://localhost:5002/api/auth/login
+Content-Type: application/json
+
+{
+    "email":"test@mail.com",
+    "password":"Testing"
+}
+###
+
+POST http://localhost:5002/api/auth/logout
+###
+
+// User Controller
+GET http://localhost:5002/api/user
+###
+
+POST http://localhost:5002/api/user
+Content-Type: application/json
+
+{
+    "first_name":"Thijs",
+    "last_name":"Test",
+    "password":"Testing",
+    "email":"test@mail.com",
+    "recurring_days":"5"
+}
+###
+
+PUT http://localhost:5002/api/user/1
+Content-Type: application/json
+
+{
+    "id":1,
+    "first_name":"Arnold",
+    "last_name":"Test",
+    "password":"Testing",
+    "email":"test@mail.com",
+    "recurring_days":"5"
+}
+###
+
+DELETE http://localhost:5002/api/user/1
+###
