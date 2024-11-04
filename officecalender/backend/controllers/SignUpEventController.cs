@@ -36,19 +36,6 @@ public class SignUpEventController : ControllerBase
     }
    
 
-     [HttpPost("exampleUserId")]
-public async Task<IActionResult> exampleIdAsync([FromBody] EventAttendanceRequest request)
-{
-    int? userId = HttpContext.Session.GetInt32("UserId");
-    if (!userId.HasValue)
-    {
-        return Unauthorized("User ID not found in session.");
-    }
-    
-    return Ok($"User ID from session: {userId.Value}");
-    
-}
-
  [HttpPost("SignUpEventUser")] //Post Adds user to the event
 public async Task<IActionResult> addUserToEvent([FromBody] EventAttendanceRequest request)
 {
