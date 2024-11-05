@@ -42,34 +42,36 @@ public class AuthController : ControllerBase
             return Conflict("User is already logged in");
         }
 
+        // Check if the user is an admin
+        var isAdmin = user.is_admin;
+        HttpContext.Session.SetString("is_admin", isAdmin ? "true" : "false");
+
         // Generate JWT token
         var token = GenerateJwtToken(user);
-         
-        //Now stores id and email in the user session
-    try
-    {
-        HttpContext.Session.SetString("UserEmail", user.email);
-        HttpContext.Session.SetInt32("UserId", user.id);
 
-        // Verify values immediately
-        var emailInSession = HttpContext.Session.GetString("UserEmail");
-        var userIdInSession = HttpContext.Session.GetInt32("UserId");
-
-        if (string.IsNullOrEmpty(emailInSession) || !userIdInSession.HasValue)
+        try
         {
-            return StatusCode(500, "Failed to store session values");
+            // Store email, user ID, and admin status in the session
+            HttpContext.Session.SetString("UserEmail", user.email);
+            HttpContext.Session.SetInt32("UserId", user.id);
+
+            // Verify session values
+            var emailInSession = HttpContext.Session.GetString("UserEmail");
+            var userIdInSession = HttpContext.Session.GetInt32("UserId");
+
+            if (string.IsNullOrEmpty(emailInSession) || !userIdInSession.HasValue)
+            {
+                return StatusCode(500, "Failed to store session values");
+            }
+
+            return Ok(new { message = "Logged in Successfully", isAdmin });
         }
-
-        return Ok("Logged in Successfully");
-    }
-    catch (Exception ex)
-    {
-        
-        return StatusCode(500, $"Exception: {ex.Message}");
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Exception: {ex.Message}");
+        }
     }
 
-
-    }
 
     [HttpPost("logout")]
     public IActionResult Logout()
@@ -122,7 +124,7 @@ public class AuthController : ControllerBase
 
 public class LoginDto
 {
-    
+
     public string? Email { get; set; }
     public string? Password { get; set; }
 }

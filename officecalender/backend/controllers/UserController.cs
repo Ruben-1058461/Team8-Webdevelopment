@@ -48,9 +48,6 @@ namespace officecalender.backend.Controllers
                 return BadRequest("User data is null.");
             }
 
-            // Optionally set default values
-            user.is_admin = false;
-
             // Hash the password before saving it to the database
             user.password = HashPassword(user.password);
 
