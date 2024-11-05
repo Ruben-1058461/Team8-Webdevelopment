@@ -1,0 +1,82 @@
+
+POST http://localhost:5002/api/user
+Content-Type: application/json
+
+{
+    "first_name":"Luis",
+    "last_name":"example",
+    "password":"lemon",
+    "email":"example@lemon.com",
+    "recurring_days":"20"
+}
+###
+
+// Login
+POST http://localhost:5002/api/auth/login
+Content-Type: application/json
+
+{
+    "email":"example@lemon.com",
+    "password":"lemon"
+}
+###
+
+POST http://localhost:5002/api/auth/logout
+###
+
+// Event endpoint
+GET http://localhost:5002/api/event
+###
+
+GET http://localhost:5002/api/event/2
+###
+
+POST http://localhost:5002/api/event
+AdminOnly: true
+Content-Type: application/json
+
+{
+    "title": "SignUpTest",
+    "date": "03-11-2024",
+    "start_time": "22:59",
+    "end_time": "04:00",
+    "location": "Rotterdam",
+    "admin_approval": true
+}
+###
+
+### Request to sign up a user
+POST http://localhost:5002/api/SignUpEvent/SignUpUser
+Content-Type: application/json
+
+{
+    "id": 1
+}
+
+### Request to get user ID
+POST http://localhost:5002/api/SignUpEvent/GetUserId
+Content-Type: application/json
+
+{
+    "id": 1
+}
+###
+
+
+
+###
+// Signs up the user for an event grabs the current user based on the UserID. 
+POST http://localhost:5002/api/SignUpEvent/SignUpEventUser
+Content-Type: application/json
+
+{
+    "EventId": 2,
+    "Rating": 5,
+    "Feedback": "Looking forward to this event!"
+}
+###
+// dDeltes the user from the event based on the user id.
+DELETE http://localhost:5002/api/SignUpEvent/deleteUserSignup/1
+
+
+

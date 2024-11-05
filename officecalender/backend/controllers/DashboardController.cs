@@ -28,7 +28,7 @@ public class DashboardController : ControllerBase
                     {
                         command.CommandText = @"
                             SELECT id, user_name, email, is_admin 
-                            FROM admin WHERE is_admin IS 1;
+                            FROM admin WHERE is_admin IS 0;
                         ";
 
                         // Execute the command and read the results
