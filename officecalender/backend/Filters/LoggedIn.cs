@@ -6,7 +6,7 @@ public class LoggedInAttribute : ActionFilterAttribute
     public override void OnActionExecuting(ActionExecutingContext context)
     {
         var path = context.HttpContext.Request.Path.Value;
-        if (path == "/api/auth/login" || path == "/api/auth/logout")
+        if (path == "/api/auth/login" || path == "/api/auth/logout" || path == "/api/auth/loggedIn")
         {
             return;
         }
