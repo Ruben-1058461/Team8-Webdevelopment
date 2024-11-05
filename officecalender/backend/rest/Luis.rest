@@ -65,19 +65,12 @@ POST http://localhost:5002/api/SignUpEvent/userSignUpEvent
 Content-Type: application/json
 
 {
-    "EventId": 1,
-    "Rating": 5,
-    "Feedback": "Looking forward to this event!"
-}
-###
-POST http://localhost:5002/api/SignUpEvent/exampleUserId
-Content-Type: application/json
-
-{
     "EventId": 2,
     "Rating": 5,
     "Feedback": "Looking forward to this event!"
 }
+###
+
 
 ###
 POST http://localhost:5002/api/SignUpEvent/SignUpEventUser
