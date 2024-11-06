@@ -1,3 +1,117 @@
+// Login
+POST http://localhost:5002/api/auth/login
+Content-Type: application/json
+
+{
+    "email":"test@mail.com",
+    "password":"Testing"
+}
+###
+
+POST http://localhost:5002/api/auth/logout
+###
+
+GET http://localhost:5002/api/auth/loggedIn
+###
+
+// Admin Endpoint
+GET http://localhost:5002/api/Admin
+###
+
+GET http://localhost:5002/api/Admin/1
+###
+
+POST http://localhost:5002/api/Admin
+Content-Type: application/json
+
+{
+    "user_name": "Thijs",
+    "password": "Test",
+    "email": "8",
+    "is_admin": true
+}
+###
+
+PUT http://localhost:5002/api/Admin/3
+Content-Type: application/json
+
+{
+    "id":3,
+    "user_name": "Thijs",
+    "password": "Testing",
+    "email": "8",
+    "is_admin": true
+}
+###
+
+DELETE http://localhost:5002/api/Admin/3
+###
+
+// Attendance endpoint
+GET http://localhost:5002/api/attendance
+###
+
+GET http://localhost:5002/api/attendance/1
+###
+
+POST http://localhost:5002/api/attendance
+Content-Type: application/json
+
+{
+    "id":1,
+    "user_id": "5",
+    "date": "31-10-2024"
+}
+###
+
+PUT http://localhost:5002/api/attendance/1
+Content-Type: application/json
+
+{
+    "id":1,
+    "user_id": 5,
+    "date": "31-10-2024"
+}
+###
+
+DELETE http://localhost:5002/api/attendance/3
+###
+
+// EventAttendance endpoint
+GET http://localhost:5002/api/EventAttendance
+###
+
+GET http://localhost:5002/api/EventAttendance/1
+###
+
+POST http://localhost:5002/api/EventAttendance
+Content-Type: application/json
+
+{
+    "id": 1,
+    "user_id": 1,
+    "event_id": 10,
+    "rating": 10,
+    "feedback": "Good Soup"
+}
+###
+
+PUT http://localhost:5002/api/EventAttendance/1
+Content-Type: application/json
+
+{
+    "id": 1,
+    "user_id": 1,
+    "event_id": 10,
+    "rating": 10,
+    "feedback": "Very Good Soup"
+}
+###
+
+DELETE http://localhost:5002/api/EventAttendance/1
+###
+
+
 // Event endpoint
 GET http://localhost:5002/api/event
 ###
@@ -11,6 +125,7 @@ Content-Type: application/json
 
 {
     "title": "Test",
+    "description":"testing",
     "date": "31-10-2024",
     "start_time": "9:30",
     "end_time": "10:00",
@@ -26,6 +141,7 @@ Content-Type: application/json
 {
     "id": 1,
     "title": "Test Post",
+    "description":"testing",
     "date": "31-10-2024",
     "start_time": "9:30",
     "end_time": "11:00",
@@ -71,21 +187,12 @@ Content-Type: application/json
 DELETE http://localhost:5002/api/EventAttendance/1
 ###
 
-// Login
-POST http://localhost:5002/api/auth/login
-Content-Type: application/json
-
-{
-    "email":"test@mail.com",
-    "password":"Testing"
-}
-###
-
-POST http://localhost:5002/api/auth/logout
-###
 
 // User Controller
 GET http://localhost:5002/api/user
+###
+
+GET http://localhost:5002/api/user/1
 ###
 
 POST http://localhost:5002/api/user
