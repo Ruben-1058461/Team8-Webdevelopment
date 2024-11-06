@@ -61,10 +61,18 @@ Content-Type: application/json
     "id": 1
 }
 ###
+POST http://localhost:5002/api/SignUpEvent/userSignUpEvent
+Content-Type: application/json
+
+{
+    "EventId": 2,
+    "Rating": 5,
+    "Feedback": "Looking forward to this event!"
+}
+###
 
 
 ###
-// Signs up the user for an event grabs the current user based on the UserID. 
 POST http://localhost:5002/api/SignUpEvent/SignUpEventUser
 Content-Type: application/json
 
@@ -74,7 +82,6 @@ Content-Type: application/json
     "Feedback": "Looking forward to this event!"
 }
 ###
-// dDeltes the user from the event based on the user id.
 DELETE http://localhost:5002/api/SignUpEvent/deleteUserSignup/1
 
 

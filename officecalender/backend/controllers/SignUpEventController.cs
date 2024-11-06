@@ -35,6 +35,10 @@ public class SignUpEventController : ControllerBase
         return Ok(request.Id);
     }
    
+
+     [HttpPost("exampleUserId")]
+
+
  [HttpPost("SignUpEventUser")] //Post Adds user to the event
 public async Task<IActionResult> addUserToEvent([FromBody] EventAttendanceRequest request)
 {
