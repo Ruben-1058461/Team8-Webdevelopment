@@ -3,7 +3,7 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.Data.Sqlite;
 
-[LoggedIn]
+
 [Route("api/[controller]")]
 [ApiController]
 public class DashboardController : ControllerBase
