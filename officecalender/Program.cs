@@ -33,6 +33,8 @@ builder.Services.AddControllers(options =>
     options.Filters.Add<LoggedInAttribute>(); // Apply the LoggedIn filter globally
 });
 
+builder.Services.AddScoped<AuthService>();
+
 builder.Services.AddEndpointsApiExplorer();
 
 // Configure Swagger for API documentation
